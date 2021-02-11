@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './Home.module.scss';
-import {BottomNavigation, BottomNavigationAction} from "@material-ui/core";
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {makeStyles} from "@material-ui/styles";
-import {CloudQueue} from "@material-ui/icons";
-import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
+
+import items from "../../shared/data";
 
 
 const useStyles = makeStyles({
@@ -15,6 +13,13 @@ const useStyles = makeStyles({
 });
 
 
+let retrivedData = JSON.parse(localStorage.getItem('data')).items;
+if(!retrivedData){
+    console.log('no data found in localStorage! Saving data now!');
+    localStorage.setItem('data', JSON.stringify(items));
+    retrivedData = JSON.stringify(items).items;
+}
+
 const Home = () => {
     const [value, setValue] = useState(0);
     const classes = useStyles();
@@ -23,19 +28,19 @@ const Home = () => {
             <h2 className={styles.homeTitle}>
                 Welcome to the REWARD Äpp!
             </h2>
-            <BottomNavigation
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
-                showLabels
-                className={classes.root}
-            >
-                <BottomNavigationAction label="Cloud" icon={<CloudQueue />} />
-                <BottomNavigationAction label="MainView" icon={<WbIncandescentIcon />} />
-                <BottomNavigationAction label="HowToNameThis?" icon={<LocationOnIcon />} />
-            </BottomNavigation>
+            {retrivedData.length > 0 ?
+                (retrivedData.map(item => (
+                    <div>
+                        <p>{item.id}</p>
+                        <p>{item.title}</p>
+                        <p>{item.isInCloud}</p>
+                        <p>{item.isInCloud ? 'true': 'false'}</p>
+                        <p>{item.type}</p>
+                    </div>
+                )))
+            : null}
         </div>
+
     );
 }
 
