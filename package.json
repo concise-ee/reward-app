@@ -4,10 +4,11 @@
   "private": true,
   "homepage": "https://concise-ee.github.io/reward-app/",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.0",
-    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
@@ -18,6 +19,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "watch": "cra-build-watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "cra-build-watch": "^3.4.0",
+    "gh-pages": "^3.1.0",
     "sass": "^1.32.7",
     "sass-loader": "^11.0.1"
   }
