@@ -135,6 +135,7 @@ const Home = () => {
                         ref={provided.innerRef}
                         style={getListStyle(snapshot.isDraggingOver)}
                     >
+                        <h5>Cloud</h5>
                         {droppableLists.find(list => list.droppableId === 'droppableCloudList').items.map((item, index) => (
                             <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                 {(provided, snapshot) => (
@@ -292,14 +293,13 @@ const Home = () => {
                                 </Droppable>
                             </Paper>
                         </Grid>
-                        <Grid item xs={6} className={styles.completed}>
-                            <Paper className={styles.paper}>
-                                <Droppable droppableId='droppableCompleted'>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
+                        <div className={styles.paper}>
+                            <Droppable droppableId='droppableCompleted'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
                                         >
                                             <h5>Completed!</h5>
                                             {droppableLists.find(list => list.droppableId === 'droppableCompleted').items.map((item, index) => (
@@ -310,21 +310,20 @@ const Home = () => {
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
                                                             style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </Paper>
-                        </Grid>
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                        {item.title}
+                                    </div>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+            </div>
                     </Grid>
                 </div>
             </DragDropContext>
