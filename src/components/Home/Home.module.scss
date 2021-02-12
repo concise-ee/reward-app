@@ -1,17 +1,24 @@
 .Home {}
 
 .paper {
-  min-width: 150px;
-  max-width: 400px;
-  min-height: 200px;
-  //max-height: 300px;
+  max-width: 265px;
+  //max-height:z300px;
   margin: auto;
-  padding: 0px;
+  padding: 5px;
   text-align: center;
+  vertical-align: middle;
   color: green;
 }
 
 .grid-item {
-  max-width: 500px;
+  max-width: 250px;
+  //max-height: 300px;
   margin: auto;
+  padding: 5px;
+  text-align: center;
+}
+
+.icon {
+  max-width: 2em;
+  max-height: 2em;
 }

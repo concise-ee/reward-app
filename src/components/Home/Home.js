@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import '@atlaskit/css-reset';
-import PropTypes from 'prop-types';
+import iconMIT from '../../images/MITicon.png'
+import iconTODO from '../../images/TODOicon.png'
+import iconPLAN from '../../images/PLANicon.png'
+import iconREWARD from '../../images/REWARDicon.png'
 import styles from './Home.module.scss';
 import items from "../../shared/data";
 import {Grid, Paper} from "@material-ui/core";
@@ -11,18 +14,18 @@ const grid = 8;
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
-    padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
+    padding: grid * 1.5,
+    margin: `0 0 5px 0`,
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "lightgreen" : "white",
 
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
+    background: isDraggingOver ? "lightblue" : "#95b79d",
     padding: grid,
     width: 250
 });
@@ -170,7 +173,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            <h5>MIT</h5>
+                                            <img src= {iconMIT} className={[styles.icon, styles.bottomRight].join('')}/>
                                             {droppableLists.find(list => list.droppableId === 'droppableMitList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -203,7 +206,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            <h5>To-Do</h5>
+                                            <img src= {iconTODO} className={[styles.icon, styles.bottomRight].join('')}/>
                                             {droppableLists.find(list => list.droppableId === 'droppableTodoList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -236,7 +239,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            <h5>Plan</h5>
+                                            <img src= {iconPLAN} className={[styles.icon, styles.bottomRight].join('')}/>
                                             {droppableLists.find(list => list.droppableId === 'droppablePlanList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -269,7 +272,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            <h5>Reward</h5>
+                                            <img src= {iconREWARD} className={[styles.icon, styles.bottomRight].join('')}/>
                                             {droppableLists.find(list => list.droppableId === 'droppableRewardList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
