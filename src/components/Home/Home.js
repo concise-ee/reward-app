@@ -339,7 +339,7 @@ const Home = () => {
                                         ref={provided.innerRef}
                                         style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            <h5>Completed!</h5>
+                                            <h1>Completed!</h1>
                                             {droppableLists.find(list => list.droppableId === 'droppableCompleted').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (

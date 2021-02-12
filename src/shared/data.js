@@ -70,13 +70,6 @@ const items = {"items": [
         type: 'plan',
     },
     {
-        id: 11,
-        title: 'Ask for raise',
-        isInCloud: true,
-        isCompleted: false,
-        type: 'plan',
-    },
-    {
         id: 12,
         title: 'Learn estonian',
         isInCloud: true,
@@ -85,7 +78,7 @@ const items = {"items": [
     },
     {
         id: 13,
-        title: 'Alcohol',
+        title: 'Beer',
         isInCloud: true,
         isCompleted: false,
         type: 'reward',
