@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '@atlaskit/css-reset';
 import PropTypes from 'prop-types';
 import styles from './Home.module.scss';
 import {makeStyles} from "@material-ui/styles";
@@ -41,6 +42,7 @@ const initializeLocalStorage = () => {
     localStorage.setItem('droppableTodoList', JSON.stringify(emptyItems));
     localStorage.setItem('droppablePlanList', JSON.stringify(emptyItems));
     localStorage.setItem('droppableRewardList', JSON.stringify(emptyItems));
+    localStorage.setItem('droppableCompleted', JSON.stringify(emptyItems));
 }
 
 const resetLocalStorage = () => {
@@ -49,6 +51,7 @@ const resetLocalStorage = () => {
     localStorage.removeItem('droppableTodoList');
     localStorage.removeItem('droppablePlanList');
     localStorage.removeItem('droppableRewardList');
+    localStorage.removeItem('droppable');
 }
 
 let droppableCloudList;
@@ -81,6 +84,10 @@ const initializeDroppableLists = () => {
         {
             droppableId: 'droppableRewardList',
             items: JSON.parse(localStorage.getItem('droppableRewardList')).items
+        },
+        {
+            droppableId: 'droppableCompleted',
+            items: JSON.parse(localStorage.getItem('droppableCompleted')).items
         }
     ]);
 }
@@ -167,6 +174,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
+                                            <h5>MIT</h5>
                                             {droppableLists.find(list => list.droppableId === 'droppableMitList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -199,6 +207,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
+                                            <h5>To-Do</h5>
                                             {droppableLists.find(list => list.droppableId === 'droppableTodoList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -231,6 +240,7 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
+                                            <h5>Plan</h5>
                                             {droppableLists.find(list => list.droppableId === 'droppablePlanList').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
@@ -263,7 +273,41 @@ const Home = () => {
                                             ref={provided.innerRef}
                                             style={getListStyle(snapshot.isDraggingOver)}
                                         >
+                                            <h5>Reward</h5>
                                             {droppableLists.find(list => list.droppableId === 'droppableRewardList').items.map((item, index) => (
+                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            style={getItemStyle(
+                                                                snapshot.isDragging,
+                                                                provided.draggableProps.style
+                                                            )}
+                                                        >
+                                                            {item.title}
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6} className={styles.completed}>
+                            <Paper className={styles.paper}>
+                                <Droppable droppableId='droppableCompleted'>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            {...provided.droppableProps}
+                                            ref={provided.innerRef}
+                                            style={getListStyle(snapshot.isDraggingOver)}
+                                        >
+                                            <h5>Completed!</h5>
+                                            {droppableLists.find(list => list.droppableId === 'droppableCompleted').items.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                                                     {(provided, snapshot) => (
                                                         <div
@@ -292,7 +336,6 @@ const Home = () => {
         </div>
     );
 }
-
 
 Home.propTypes = {};
 

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://concise-ee.github.io/reward-app/",
   "dependencies": {
+    "@atlaskit/css-reset": "^6.0.5",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
