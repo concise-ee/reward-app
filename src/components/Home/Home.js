@@ -293,6 +293,8 @@ const Home = () => {
                                 </Droppable>
                             </Paper>
                         </Grid>
+                    </Grid>
+                    <hr style={{color: 'green'}}/>
                         <div className={styles.paper}>
                             <Droppable droppableId='droppableCompleted'>
                                 {(provided, snapshot) => (
@@ -324,7 +326,6 @@ const Home = () => {
                 )}
             </Droppable>
             </div>
-                    </Grid>
                 </div>
             </DragDropContext>
         </div>
