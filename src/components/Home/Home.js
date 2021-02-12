@@ -2,13 +2,8 @@ import React, {useState} from 'react';
 import '@atlaskit/css-reset';
 import PropTypes from 'prop-types';
 import styles from './Home.module.scss';
-import {makeStyles} from "@material-ui/styles";
-
 import items from "../../shared/data";
-import Quadrant from "../Quadrant/Quadrant";
-import DroppableList from "../DroppableList/DroppableList";
 import {Grid, Paper} from "@material-ui/core";
-import {moveItem} from "../../shared/helper";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
 const grid = 8;
