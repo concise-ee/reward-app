@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/reward-app/static/css/main.8a0233fe.chunk.css",
-    "main.js": "/reward-app/static/js/main.ae47d197.chunk.js",
-    "main.js.map": "/reward-app/static/js/main.ae47d197.chunk.js.map",
+    "main.css": "/reward-app/static/css/main.210877cd.chunk.css",
+    "main.js": "/reward-app/static/js/main.3c14eb86.chunk.js",
+    "main.js.map": "/reward-app/static/js/main.3c14eb86.chunk.js.map",
     "runtime-main.js": "/reward-app/static/js/runtime-main.77b47a59.js",
     "runtime-main.js.map": "/reward-app/static/js/runtime-main.77b47a59.js.map",
     "static/css/2.c8940395.chunk.css": "/reward-app/static/css/2.c8940395.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.f70dc996.chunk.js.map": "/reward-app/static/js/3.f70dc996.chunk.js.map",
     "index.html": "/reward-app/index.html",
     "static/css/2.c8940395.chunk.css.map": "/reward-app/static/css/2.c8940395.chunk.css.map",
-    "static/css/main.8a0233fe.chunk.css.map": "/reward-app/static/css/main.8a0233fe.chunk.css.map",
+    "static/css/main.210877cd.chunk.css.map": "/reward-app/static/css/main.210877cd.chunk.css.map",
     "static/js/2.a132a2ef.chunk.js.LICENSE.txt": "/reward-app/static/js/2.a132a2ef.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/reward-app/static/media/logo.6ce24c58.svg"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.77b47a59.js",
     "static/css/2.c8940395.chunk.css",
     "static/js/2.a132a2ef.chunk.js",
-    "static/css/main.8a0233fe.chunk.css",
-    "static/js/main.ae47d197.chunk.js"
+    "static/css/main.210877cd.chunk.css",
+    "static/js/main.3c14eb86.chunk.js"
   ]
 }
