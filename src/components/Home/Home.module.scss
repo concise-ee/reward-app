@@ -19,6 +19,82 @@
 }
 
 .icon {
-  max-width: 2em;
-  max-height: 2em;
+  max-width: 32px;
+  max-height: 32px;
 }
+
+.iconRightBottom {
+  max-width: 32px;
+  max-height: 32px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.iconRightTop {
+  max-width: 32px;
+  max-height: 32px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.iconLeftBottom {
+  max-width: 32px;
+  max-height: 32px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.iconLeftTop {
+  max-width: 32px;
+  max-height: 32px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.borderRightBottom {
+  border-right: 0.1em solid #000000;
+  border-bottom: 0.1em solid #000000;
+  min-height: 5em;
+  color: black;
+}
+.borderLeftBottom {
+  border-left: 0.1em solid #000000;
+  border-bottom: 0.1em solid #000000;
+  min-height: 5em;
+  color: black;
+}
+.borderRightTop {
+  border-right: 0.1em solid #000000;
+  border-top: 0.1em solid #000000;
+  min-height: 5em;
+  color: black;
+}
+.borderLeftTop {
+  border-left: 0.1em solid #000000;
+  border-top: 0.1em solid #000000;
+  min-height: 5em;
+  color: black;
+}
+
+.cloud {
+  background-image: url('../../images/cloud600x400.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  min-width: 150px;
+  max-width: 600px;
+  min-height: 400px;
+  //max-height: 300px;
+  margin: auto;
+  padding: 0px;
+  text-align: center;
+  color: black;
+  //background-color: lightsalmon;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+

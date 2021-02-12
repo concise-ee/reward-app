@@ -9,6 +9,10 @@ import items from "../../shared/data";
 import {Grid, Paper} from "@material-ui/core";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
+import { Container, Row, Col } from 'react-bootstrap';
+
+import imgCloud from '../../images/cloud.png'
+
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -18,16 +22,16 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     margin: `0 0 5px 0`,
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "white",
+    // background: isDragging ? "lightgreen" : "white",
 
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "lightblue" : "#95b79d",
-    padding: grid,
-    width: 250
+    // background: isDraggingOver ? "lightblue" : "#95b79d",
+    // padding: grid,
+    // width: 250
 });
 
 
@@ -90,6 +94,14 @@ const initializeDroppableLists = () => {
     ]);
 }
 
+const saveListToLocalStorage = (key, list) => {
+    if (!key || !list) return;
+    else {
+        localStorage.setItem(key, JSON.stringify(list));
+    }
+
+}
+
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -99,13 +111,28 @@ const reorder = (list, startIndex, endIndex) => {
     return result;
 };
 
+const shouldInitialize = () => {
+    return localStorage.getItem('droppableCloudList') ? false : true;
+}
+
+const addItemToCloud = (item) => {
+    let droppableCloudList = JSON.parse(localStorage.getItem('droppableCloudList')).items;
+    droppableCloudList = [...droppableCloudList, item];
+    localStorage.setItem('droppableCloudList', JSON.stringify(droppableCloudList));
+}
+
 
 const Home = () => {
     resetLocalStorage();
-    initializeLocalStorage();
+    if(shouldInitialize()) {
+        initializeLocalStorage();
+    }
     const[droppableLists, setDroppableLists] = useState(initializeDroppableLists());
     return (
         <div>
+            {/*<button type="button" onClick={() => initializeLocalStorage()}>Reset Lists</button>*/}
+            {/*<button type="button" onClick={() => resetLocalStorage()}>Clear LocalStorage</button>*/}
+            {/*<button type="button" onClick={() => addItemToCloud()}>Add New Cloud</button>*/}
             <DragDropContext onDragEnd={(result) => {
                 if (!result.destination) return;
                 else if (result.source.droppableId === result.destination.droppableId) {
@@ -115,6 +142,7 @@ const Home = () => {
                     const clonedDroppableLists = droppableLists;
                     clonedDroppableLists[droppableListToUpdateIndex].items = reorderedList;
                     setDroppableLists(clonedDroppableLists);
+                    saveListToLocalStorage(result.source.droppableId, reorderedList);
                 } else {
                     const droppableListsClone = droppableLists;
                     const sourceDroppableList = droppableListsClone.find(list => list.droppableId === result.source.droppableId);
@@ -128,175 +156,180 @@ const Home = () => {
                     droppableListsClone[sourceDroppableListIndex] = sourceDroppableList;
                     droppableListsClone[destinationDroppableListIndex] = destinationDroppableList;
                     setDroppableLists(droppableListsClone);
+                    saveListToLocalStorage(sourceDroppableList.droppableId, sourceDroppableList.items);
+                    saveListToLocalStorage(destinationDroppableList.droppableId, destinationDroppableList.items);
                 }
             }}>
-            <div className={styles.paper}>
-            <Droppable droppableId='droppableCloudList'>
-                {(provided, snapshot) => (
-                    <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}
-                    >
-                        <h5>Cloud</h5>
-                        {droppableLists.find(list => list.droppableId === 'droppableCloudList').items.map((item, index) => (
-                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+            <div className={styles.cloud}>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Droppable droppableId='droppableCloudList'>
                                 {(provided, snapshot) => (
                                     <div
+                                        {...provided.droppableProps}
                                         ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}
+                                        style={getListStyle(snapshot.isDraggingOver)}
                                     >
-                                        {item.title}
+                                        {/*<h5>Cloud</h5>*/}
+                                        {droppableLists.find(list => list.droppableId === 'droppableCloudList').items.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.title}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
                                     </div>
                                 )}
-                            </Draggable>
-                        ))}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
+                            </Droppable>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
             <hr style={{color: 'green'}}/>
+                {/*      Quadrant Starts here      */}
+                <Container>
+                    <Row>
+                        <Col className={styles.borderRightBottom}>
+                            <img src={iconMIT} className={styles.iconRightBottom}/>
+                            <Droppable droppableId='droppableMitList'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
+                                    >
+                                        {droppableLists.find(list => list.droppableId === 'droppableMitList').items.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.title}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Col>
+                        <Col className={styles.borderLeftBottom}>
+                            <img src={iconTODO} className={styles.iconLeftBottom}/>
+                            <Droppable droppableId='droppableTodoList'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
+                                    >
+                                        {droppableLists.find(list => list.droppableId === 'droppableTodoList').items.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.title}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className={styles.borderRightTop}>
+                            <img src={iconPLAN} className={styles.iconRightTop}/>
+                            <Droppable droppableId='droppablePlanList'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
+                                    >
+                                        {droppableLists.find(list => list.droppableId === 'droppablePlanList').items.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.title}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Col>
+                        <Col className={styles.borderLeftTop}>
+                            <img src={iconREWARD} className={styles.iconLeftTop}/>
+                            <Droppable droppableId='droppableRewardList'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={getListStyle(snapshot.isDraggingOver)}
+                                    >
+                                        {droppableLists.find(list => list.droppableId === 'droppableRewardList').items.map((item, index) => (
+                                            <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                                                {(provided, snapshot) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            snapshot.isDragging,
+                                                            provided.draggableProps.style
+                                                        )}
+                                                    >
+                                                        {item.title}
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Col>
+                    </Row>
+                </Container>
                 <div className={styles.root}>
-                    <Grid container spacing={0}>
-                        <Grid item xs={6} className={styles.gridItem}>
-                            <Paper className={styles.paper}>
-                                <Droppable droppableId='droppableMitList'>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
-                                        >
-                                            <img src= {iconMIT} className={[styles.icon, styles.bottomRight].join('')}/>
-                                            {droppableLists.find(list => list.droppableId === 'droppableMitList').items.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6} className={styles.gridItem}>
-                            <Paper className={styles.paper}>
-                                <Droppable droppableId='droppableTodoList'>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
-                                        >
-                                            <img src= {iconTODO} className={[styles.icon, styles.bottomRight].join('')}/>
-                                            {droppableLists.find(list => list.droppableId === 'droppableTodoList').items.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6} className={styles.gridItem}>
-                            <Paper className={styles.paper}>
-                                <Droppable droppableId='droppablePlanList'>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
-                                        >
-                                            <img src= {iconPLAN} className={[styles.icon, styles.bottomRight].join('')}/>
-                                            {droppableLists.find(list => list.droppableId === 'droppablePlanList').items.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6} className={styles.gridItem}>
-                            <Paper className={styles.paper}>
-                                <Droppable droppableId='droppableRewardList'>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            {...provided.droppableProps}
-                                            ref={provided.innerRef}
-                                            style={getListStyle(snapshot.isDraggingOver)}
-                                        >
-                                            <img src= {iconREWARD} className={[styles.icon, styles.bottomRight].join('')}/>
-                                            {droppableLists.find(list => list.droppableId === 'droppableRewardList').items.map((item, index) => (
-                                                <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={getItemStyle(
-                                                                snapshot.isDragging,
-                                                                provided.draggableProps.style
-                                                            )}
-                                                        >
-                                                            {item.title}
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            </Paper>
-                        </Grid>
-                    </Grid>
                     <hr style={{color: 'green'}}/>
                         <div className={styles.paper}>
                             <Droppable droppableId='droppableCompleted'>
