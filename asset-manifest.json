@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/reward-app/static/css/main.06d88aaa.chunk.css",
-    "main.js": "/reward-app/static/js/main.3e6bf497.chunk.js",
-    "main.js.map": "/reward-app/static/js/main.3e6bf497.chunk.js.map",
+    "main.css": "/reward-app/static/css/main.ac36d623.chunk.css",
+    "main.js": "/reward-app/static/js/main.d9703bc7.chunk.js",
+    "main.js.map": "/reward-app/static/js/main.d9703bc7.chunk.js.map",
     "runtime-main.js": "/reward-app/static/js/runtime-main.ee494d1a.js",
     "runtime-main.js.map": "/reward-app/static/js/runtime-main.ee494d1a.js.map",
     "static/css/2.33fd56e4.chunk.css": "/reward-app/static/css/2.33fd56e4.chunk.css",
@@ -12,10 +12,9 @@
     "static/js/3.83bdbdeb.chunk.js.map": "/reward-app/static/js/3.83bdbdeb.chunk.js.map",
     "index.html": "/reward-app/index.html",
     "static/css/2.33fd56e4.chunk.css.map": "/reward-app/static/css/2.33fd56e4.chunk.css.map",
-    "static/css/main.06d88aaa.chunk.css.map": "/reward-app/static/css/main.06d88aaa.chunk.css.map",
+    "static/css/main.ac36d623.chunk.css.map": "/reward-app/static/css/main.ac36d623.chunk.css.map",
     "static/js/2.96a02323.chunk.js.LICENSE.txt": "/reward-app/static/js/2.96a02323.chunk.js.LICENSE.txt",
-    "static/media/cloud.7fbad2a6.png": "/reward-app/static/media/cloud.7fbad2a6.png",
-    "static/media/Home.module.scss": "/reward-app/static/media/cloud600x400.6b60089a.png",
+    "static/media/Home.module.scss": "/reward-app/static/media/cloud.7fbad2a6.png",
     "static/media/bootstrap.min.css": "/reward-app/static/media/glyphicons-halflings-regular.be810be3.woff2",
     "static/media/logo.6ce24c58.svg": "/reward-app/static/media/logo.6ce24c58.svg"
   },
@@ -23,7 +22,7 @@
     "static/js/runtime-main.ee494d1a.js",
     "static/css/2.33fd56e4.chunk.css",
     "static/js/2.96a02323.chunk.js",
-    "static/css/main.06d88aaa.chunk.css",
-    "static/js/main.3e6bf497.chunk.js"
+    "static/css/main.ac36d623.chunk.css",
+    "static/js/main.d9703bc7.chunk.js"
   ]
 }
